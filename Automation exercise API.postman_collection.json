@@ -1,0 +1,667 @@
+{
+  "info": {
+    "_postman_id": "a1470428-47b5-4ed4-8d83-87a4bdc240e6",
+    "name": "Automation exercise API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58763773",
+    "_collection_link": "https://go.postman.co/collection/58763773-a1470428-47b5-4ed4-8d83-87a4bdc240e6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "04 Account lifecycle",
+      "item": [
+        {
+          "name": "API 11: Create an account",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"email\", `tester${Date.now()}@automationex.com`);\n\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 201\", () => {\n    pm.expect(body.responseCode).to.eql(201);\n});\n\npm.test(\"Message says the user was created\", () => {\n    pm.expect(body.message).to.eql(\"User created!\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "Test User"
+                },
+                {
+                  "key": "email",
+                  "value": "{{email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                },
+                {
+                  "key": "title",
+                  "value": "Mr"
+                },
+                {
+                  "key": "birth_date",
+                  "value": "15"
+                },
+                {
+                  "key": "birth_month",
+                  "value": "1"
+                },
+                {
+                  "key": "birth_year",
+                  "value": "2000"
+                },
+                {
+                  "key": "firstname",
+                  "value": "Test"
+                },
+                {
+                  "key": "lastname",
+                  "value": "User"
+                },
+                {
+                  "key": "company",
+                  "value": "Automate Co."
+                },
+                {
+                  "key": "address1",
+                  "value": "123 Sample Street"
+                },
+                {
+                  "key": "address2",
+                  "value": "Unit 4"
+                },
+                {
+                  "key": "country",
+                  "value": "Canada"
+                },
+                {
+                  "key": "zipcode",
+                  "value": "6000"
+                },
+                {
+                  "key": "state",
+                  "value": "Ontario"
+                },
+                {
+                  "key": "city",
+                  "value": "Toronto"
+                },
+                {
+                  "key": "mobile_number",
+                  "value": "101010101010"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/createAccount",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "createAccount"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 12: Get account by email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 200\", () => {\n    pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Returned user matches the account created\", () => {\n    pm.expect(body.user.email).to.eql(pm.environment.get(\"email\"));\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/getUserDetailByEmail?email={{email}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "getUserDetailByEmail"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "{{email}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 13: Update account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Body code is 200\", () => {\n  pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Message says the user was updated\", () => {\n  pm.expect(body.message).to.eql(\"User updated!\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "Test User"
+                },
+                {
+                  "key": "email",
+                  "value": "{{email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                },
+                {
+                  "key": "title",
+                  "value": "Mr"
+                },
+                {
+                  "key": "birth_date",
+                  "value": "15"
+                },
+                {
+                  "key": "birth_month",
+                  "value": "1"
+                },
+                {
+                  "key": "birth_year",
+                  "value": "2000"
+                },
+                {
+                  "key": "firstname",
+                  "value": "Test"
+                },
+                {
+                  "key": "lastname",
+                  "value": "User"
+                },
+                {
+                  "key": "company",
+                  "value": "Automate Co."
+                },
+                {
+                  "key": "address1",
+                  "value": "123 Sample Street"
+                },
+                {
+                  "key": "address2",
+                  "value": "Unit 4"
+                },
+                {
+                  "key": "country",
+                  "value": "Canada"
+                },
+                {
+                  "key": "zipcode",
+                  "value": "6000"
+                },
+                {
+                  "key": "state",
+                  "value": "Ontario"
+                },
+                {
+                  "key": "city",
+                  "value": "London"
+                },
+                {
+                  "key": "mobile_number",
+                  "value": "101010101010"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/updateAccount",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "updateAccount"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 14: Delete account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Body code is 200\", () => {\n    pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Message says the account was deleted!\", () => {\n    pm.expect(body.message).to.eql(\"Account deleted!\");\n})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "{{email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/deleteAccount",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "deleteAccount"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 Login Checks",
+      "item": [
+        {
+          "name": "API 7: Verify login with valid credentials",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 200\", () => {\n    pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Message says User exists!\", () => {\n    pm.expect(body.message).to.eql(\"User exists!\");\n});\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "{{email}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/verifyLogin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 8: Verify login without email parameter",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 400\", () => {\n    pm.expect(body.responseCode).to.eql(400);\n});\n\npm.test(\"Message says Bad request, email or password parameter is missing\", () => {\n    pm.expect(body.message).to.include(\"Bad request, email or password parameter is missing in POST request\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "password",
+                  "value": "{{password}}ass"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/verifyLogin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 9: Delete on verify login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// (no body) : Another wrong method on purpose\n\nconst body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 405\", () => {\n    pm.expect(body.responseCode).to.eql(405);\n});\n\npm.test(\"Message says that this request method is not supported\", () => {\n    pm.expect(body.message).to.include(\"This request method is not supported\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/verifyLogin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 10: Verify login with invalid credentials",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 404\", () => {\n    pm.expect(body.responseCode).to.eql(404);\n});\n\npm.test(\"Message says User not found\", () => {\n    pm.expect(body.message).to.eql(\"User not found!\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "email",
+                  "value": "invalid_email@automationex.com"
+                },
+                {
+                  "key": "password",
+                  "value": "wrong_password"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/verifyLogin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "verifyLogin"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "01 Products and Brands",
+      "item": [
+        {
+          "name": "API 1: Get all products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 200\", () => {\n    pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Product list is not empty\", () => {\n    pm.expect(body.products).to.be.an(\"array\").that.is.not.empty;\n});\n\npm.test(\"Each product has an id, name and price\", () => {\n    body.products.forEach( products => {\n        pm.expect(products).to.have.property(\"id\");\n        pm.expect(products).to.have.property(\"name\");\n        pm.expect(products).to.have.property(\"price\");\n    });\n});\n\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            },
+            "url": {
+              "raw": "{{baseUrl}}/productsList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "productsList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 2: POST to the product list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// (no body) : Another wrong method on purpose\n\nconst body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 405\", () => {\n    pm.expect(body.responseCode).to.eql(405);\n});\n\npm.test(\"Message says this request method is not supported\", () => {\n    pm.expect(body.message).to.include(\"This request method is not supported\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/productsList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "productsList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 3: Get all brands",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 200\", () => {\n    pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Brand list is not empty\", () => {\n    pm.expect(body.brands).to.be.an(\"array\").that.is.not.empty;\n});\n\npm.test(\"Each brand should have an id and a brand\", () => {\n    body.brands.forEach(brand => {\n        pm.expect(brand).to.have.property(\"id\");\n        pm.expect(brand).to.have.property(\"brand\");\n    });\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": []
+            },
+            "url": {
+              "raw": "{{baseUrl}}/brandsList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "brandsList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 4: PUT to the brand list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// (no body) : Another wrong method on purpose\n\nconst body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response is 405\", () => {\n    pm.expect(body.responseCode).to.eql(405);\n});\n\npm.test(\"Message says this request method is not supported\", () => {\n    pm.expect(body.message).to.include(\"not supported\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/brandsList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "brandsList"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 Search",
+      "item": [
+        {
+          "name": "API 5: Search a product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\nconst term = \"top\";\n\n// The match may be in the name or category, so this only checks that something matches\nconst text = JSON.stringify(body.products).toLowerCase();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response is 200\", () => {\n    pm.expect(body.responseCode).to.eql(200);\n});\n\npm.test(\"Search returns at least one product\", () => {\n    pm.expect(body.products).to.be.an(\"array\").that.is.not.empty;\n});\n\npm.test(\"Results relate to the search term\", () => {\n    pm.expect(text).to.include(term);\n});\n\npm.test(\"Every results relates to the search term\", () => {\n    body.products.forEach(p => {\n        pm.expect(text).to.include(term);\n    });\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "search_product",
+                "value": "top"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "search_product",
+                  "value": "top"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/searchProduct",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "searchProduct"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "API 6: Search without a paramter",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();\n\npm.test(\"Status code is 200\", () => {\n    pm.response.to.have.status(200);\n});\n\npm.test(\"Response code is 400\", () => {\n    pm.expect(body.responseCode).to.eql(400);\n});\n\npm.test(\"Message says Bad request\", () => {\n    pm.expect(body.message).to.include(\"Bad request, search_product parameter is missing in POST request.\");\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/searchProduct",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "searchProduct"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "if(!pm.environment.get(\"email\")) {",
+          "    pm.environment.set(\"email\", `tester${Date.now()}@automationex.com`);",
+          "}"
+        ]
+      }
+    }
+  ]
+}
